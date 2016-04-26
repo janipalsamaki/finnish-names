@@ -6,7 +6,7 @@ var names;
 
 app.set('port', (process.env.PORT || 5000));
 
-loadJson('./data/names.csv');
+loadJson(['./data/surnames.csv', './data/names-men.csv', './data/names-women.csv']);
 
 app.get('/', function(request, response) {
   response.json(names);
@@ -31,15 +31,29 @@ app.listen(app.get('port'), function() {
 /**
  * Loads and converts the csv file to in-memory JSON.
  *
- * @param csvFilePath Path to the csv file.
+ * @param csvFilePaths Paths to the csv files.
  */
-function loadJson(csvFilePath) {
+function loadJson(csvFilePaths) {
   var Converter = csvtojson.Converter;
   var converter = new Converter({delimiter: ';', headers: ["name", "count"]});
 
+  // Transform integers with spaces to actual integers.
+  converter.transform = function(json, row, index) {
+    if (typeof json['count'] != 'undefined' && !Number.isInteger(json['count'])) {
+      var count = json['count'].replace(/ /g, "");
+      json['count'] = parseInt(count);
+    }
+  };
+
   // Assign the result on conversion completion.
-  converter.fromFile(csvFilePath, function(err, result) {
-    names = result;
+  csvFilePaths.forEach(function (csvFilePath) {
+    converter.fromFile(csvFilePath, function(err, result) {
+      if (names) {
+        names.concat(result);
+      } else {
+        names = result;
+      }
+    });
   });
 }
 
