@@ -1,8 +1,8 @@
 {
   "name": "Finnish names",
   "description": "Finnish names",
-  "repository": "https://github.com/heroku/node-js-getting-started",
+  "repository": "https://github.com/janipalsamaki/finnish-names",
   "logo": "",
-  "keywords": ["node", "express", "static"],
+  "keywords": ["node", "express"],
   "image": ""
 }

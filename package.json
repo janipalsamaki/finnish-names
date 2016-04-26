@@ -10,13 +10,13 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "csvtojson": "^0.5.3",
+    "csvtojson": "0.5.3",
     "express": "4.13.4",
     "lodash": "4.11.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/janipalsamaki/finnish-names"
   },
   "keywords": [
     "node",
